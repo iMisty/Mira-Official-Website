@@ -22,6 +22,8 @@ export default {
   align-items: center;
   justify-content: center;
   background-color: rgba(0,0,0,.28);
-  height: 100vh;
+  @media screen and (min-width: 770px) {
+    height: 100vh;
+  }
 }
 </style>

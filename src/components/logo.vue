@@ -10,7 +10,7 @@ export default {
   props: {},
   data () {
     return {
-        imgUrl: '/static/avatar.png'
+        imgUrl: 'https://shizu17.pw/assets/img/avatar.png'
     }
   },
   watch: {},
@@ -24,11 +24,17 @@ export default {
 div{
     margin-bottom: 1.2rem;
     border-radius: 100%;
+    @media screen and (max-width: 770px) {
+        max-height: 100px;
+    }
     img{
         border: 6px solid #fff;
         border-radius: 100%;
         max-width: 148px;
         max-height: 148px;
+        @media screen and (max-width: 770px) {
+            width: 100px;
+        }
     }
 }
 </style>
