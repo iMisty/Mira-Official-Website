@@ -71,8 +71,6 @@ export default {
             display: flex;
             flex-direction: column;
             @media screen and (min-width: 770px) {
-                margin-top: 1.2rem;
-                padding: .8rem 0;
                 border-radius: 10px;
             }
             @media screen and (max-width: 770px) {
@@ -83,7 +81,6 @@ export default {
             }
             li{
                 list-style-type: none;
-                width: 50%;
                 padding: 1.2rem 0;
                 a{
                     padding: .8rem 0;

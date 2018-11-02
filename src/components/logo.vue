@@ -22,8 +22,10 @@ export default {
 </script>
 <style lang="less" scoped>
 div{
-    margin-bottom: 1.2rem;
     border-radius: 100%;
+    width: 160px;
+    height: 160px;
+    margin: 1.2rem auto;
     @media screen and (max-width: 770px) {
         max-height: 100px;
     }
