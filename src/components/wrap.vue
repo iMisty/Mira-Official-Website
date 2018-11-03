@@ -81,7 +81,7 @@ export default {
             }
             li{
                 list-style-type: none;
-                padding: 1.2rem 0;
+                padding: .8rem 0;
                 a{
                     padding: .8rem 0;
                     font-size: 1.2rem;
