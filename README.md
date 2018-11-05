@@ -12,7 +12,7 @@
 
 由于使用了 npm ，所以想使用的话，请先点击下面的 Demo 链接访问下，然后再决定是否下载部署
 
-Demo 地址：[https://Miya-Yukarin.github.io/Nekomimi/]
+Demo 地址：[https://Miya-Yukarin.github.io/JS-Nekomimi/]
 
 ## 功能
 
