@@ -1,0 +1,53 @@
+body,html{height:100%;width:100%;margin:0;padding:0}
+body{background-attachment:fixed}
+a,h1{color:rgba(72,72,72,.8)}
+a{text-decoration:none}
+li{list-style-type:none}
+.active{font-weight:700}
+main{display:flex;flex-direction:column;align-items:center;justify-content:center;background-color:rgba(0,0,0,.28)}
+.container{display:flex;border-radius:10px;box-shadow:4px 4px 20px rgba(0,0,0,.4)}
+.left{display:flex;flex-direction:column;text-align:center;padding:1.2em;background:rgba(66,200,244,.6)}
+.icon{margin-bottom:1.2em;border-radius:100%}
+.icon img{border:6px solid #fff;border-radius:100%;max-width:148px;max-height:148px}
+nav li a{color:rgba(248,248,248,.8)}
+.right{display:flex;flex-direction:column;text-align:center;flex:1;background-color:rgba(248,248,248,.68)}
+#right section{display:none}
+.right-game li{display:inline-flex;flex-direction:row;flex-wrap:wrap;justify-content:center}
+.game-left,.game-right{padding:0 1.2em}
+.items{display:flex;flex-wrap:wrap;flex-direction:row;align-content:center;justify-content:center;padding-bottom:1.2em}
+.items a{width:32%;padding:1.2em 0;transition:.4s}
+.items a:hover{transform:scale(1.1);transition:.4s}
+.archives{flex-direction:column;padding:0}
+.archives li{padding:.6em 0}
+.archives-text{color:#000;font-size:1.2em}
+span.archives-date{font-size:.8em}
+.about-text{margin:2.6em;padding-bottom:1.2em;letter-spacing:1px}
+#hitokoto{text-align:center;color:rgba(248,248,248,.8);text-shadow:2px 2px 2px rgba(0,0,0,.4)}
+@media only screen and (min-width:770px){
+body,html{background-size:cover}
+.active{font-size:1.6em}
+.size{font-size:3em}
+main{height:100vh}
+.container{flex-direction:row;width:48em;height:32em}
+.left{width:24%;border-radius:10px 0 0 10px}
+.icon{max-height:140px}
+.right{border-radius:0 10px 10px 0}
+nav{margin-top:1.2em}
+nav li{padding:.8em 0}
+nav li a{font-size:1.2em}
+.title{margin-top:2.4em}
+.items{margin-top:1.6em}
+}
+@media only screen and (max-width:770px){
+.size{font-size:2em}
+.container{flex-direction:column;margin:2.4em;width:96%}
+.left{border-radius:10px 10px 0 0}
+.icon{max-height:100px}
+.icon img{width:100px}
+.right{border-radius:0 0 10px 10px}
+nav{display:flex;flex-direction:row;padding-top:.4em}
+nav li{width:50%;padding:1.2em 0}
+nav li a{font-size:1em}
+.title h2{font-size:1.2em;margin:2.6em}
+#hitokoto{width:80%;margin:1em auto}
+}
