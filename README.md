@@ -12,7 +12,7 @@
 
 由于使用了 npm ，所以想使用的话，请先点击下面的 Demo 链接访问下，然后再决定是否下载部署
 
-Demo 地址：[https://Miya-Yukarin.github.io/JS-Nekomimi/]
+Demo 地址：[https://imisty.github.io/JS-Nekomimi/]
 
 ## 功能
 
@@ -45,7 +45,7 @@ Demo 地址：[https://Miya-Yukarin.github.io/JS-Nekomimi/]
 1. 请先确认计算机内已安装 `Node.js` 与 `npm` 
 
 2. 在 GitHub 中 `Clone` 这个项目，或 `Download Zip` 这个项目.或直接在终端中：
-> git clone https://github.com/Miya-Yukarin/Nekomimi.git 
+> git clone https://github.com/iMisty/Nekomimi.git 
 
 >cd nekomimi
 
