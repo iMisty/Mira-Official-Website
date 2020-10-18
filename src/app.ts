@@ -2,9 +2,9 @@
  * @Author: Miya
  * @Date: 2020-07-14 17:07:05
  * @LastEditors: Miya
- * @LastEditTime: 2020-07-30 10:05:12
+ * @LastEditTime: 2020-10-15 01:06:08
  * @Description: 入口文件
- * @FilePath: \Single-Search-Server\src\app.ts
+ * @FilePath: /Single-Search-Backend/src/app.ts
  */
 import * as Koa from 'koa';
 import * as jwt from 'koa-jwt';
@@ -23,7 +23,7 @@ app.use(cors());
 app.use(router());
 
 // logger
-app.use(async (ctx, next) => {
+app.use(async (ctx: { method: any; url: any; }, next: () => any) => {
 	const start: any = new Date();
 	await next();
 	const fin: any = new Date();
@@ -32,8 +32,8 @@ app.use(async (ctx, next) => {
 });
 
 // token
-app.use(async (ctx, next) => {
-	return next().catch((err) => {
+app.use(async (ctx: { status: number; body: { code: number; msg: any; }; }, next: () => Promise<any>) => {
+	return next().catch((err: { status: number; message: any; }) => {
 		if (err.status === 401) {
 			ctx.status = 401;
 			ctx.body = {
@@ -51,7 +51,7 @@ app.use(
 	})
 );
 
-app.listen(12450);
+app.listen(12458);
 
 // mongodb
 mongoose.connect(dbConfig.dbs, {
@@ -59,4 +59,4 @@ mongoose.connect(dbConfig.dbs, {
 	useUnifiedTopology: true,
 });
 
-console.log('server running on port 12450');
+console.log('server running on port 12458');

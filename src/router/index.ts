@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2020-07-26 03:57:56
- * @LastEditTime: 2020-07-30 03:10:35
+ * @LastEditTime: 2020-10-15 02:15:44
  * @LastEditors: Miya
  * @Description: 路由首页
- * @FilePath: \Single-Search-Server\src\router\index.ts
+ * @FilePath: /Single-Search-Backend/src/router/index.ts
  */
 import * as Router from 'koa-router';
 import * as combineRouters from 'koa-combine-routers';
@@ -17,10 +17,10 @@ import adminRouter from './admin';
 
 const router = new Router();
 
-router.get('/', async (ctx) => {
+const index = router.get('/', async (ctx) => {
 	ctx.body = 'Hello TypeScript';
 });
 
-const routers = combineRouters(linkRouter, adminRouter, testRouter);
+const routers = combineRouters(index,linkRouter, adminRouter, testRouter);
 
 export default routers;
