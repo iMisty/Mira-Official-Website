@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2020-07-26 03:08:50
- * @LastEditTime: 2020-10-15 01:38:36
+ * @LastEditTime: 2020-12-10 11:33:36
  * @LastEditors: Miya
  * @Description: 管理员用户操作
- * @FilePath: /Single-Search-Backend/src/controller/Admin.ts
+ * @FilePath: \Single-Search-APIc:\Users\Platinum Prism\Documents\GitHub\Single-Search-Backend\src\controller\Admin.ts
  */
 
 import * as Mongoose from 'mongoose';
@@ -29,13 +29,13 @@ class Admin {
     try {
       const result = await AdminSchema.find();
       console.log(result);
-      // if (result.length !== 0) {
-      // ctx.body = {
-      //   code: 401,
-      //   msg: '已有管理员配置',
-      // };
-      // return;
-      // }
+      if (result.length !== 0) {
+      ctx.body = {
+        code: 401,
+        msg: '已有管理员配置',
+      };
+      return;
+      }
       await adminSchema.save();
       ctx.body = {
         code: 200,
