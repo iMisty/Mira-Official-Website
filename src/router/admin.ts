@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2020-07-26 03:37:36
- * @LastEditTime: 2020-07-30 04:11:51
+ * @LastEditTime: 2020-12-10 10:53:21
  * @LastEditors: Miya
  * @Description: In User Settings Edit
- * @FilePath: \Single-Search-Server\src\router\admin.ts
+ * @FilePath: \Single-Search-APIc:\Users\Platinum Prism\Documents\GitHub\Single-Search-Backend\src\router\admin.ts
  */
 import * as Router from 'koa-router';
 const router = new Router();
@@ -22,7 +22,6 @@ router.post('/search', Admin.findAdmin);
 router.put('/', Admin.updateAdmin);
 // 卸载
 router.del('/', Admin.removeAdmin);
-// 登录
-router.post('/login', Admin.login);
+
 
 export default router;
