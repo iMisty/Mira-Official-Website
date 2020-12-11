@@ -2,33 +2,30 @@
  * @Author: Miya
  * @Date: 2020-07-14 17:07:05
  * @LastEditors: Miya
- * @LastEditTime: 2020-12-10 11:40:25
+ * @LastEditTime: 2020-12-11 11:38:31
  * @Description: 入口文件
  * @FilePath: \Single-Search-APIc:\Users\Platinum Prism\Documents\GitHub\Single-Search-Backend\src\app.ts
  */
-import * as Koa from "koa";
-import * as jwt from "koa-jwt";
-import cors = require("koa2-cors");
-import bodyParser = require("koa-bodyparser");
-import mongoose = require("mongoose");
-import router from "./router/index";
+import * as Koa from 'koa';
+import * as jwt from 'koa-jwt';
+import cors = require('koa2-cors');
+import bodyParser = require('koa-bodyparser');
+import mongoose = require('mongoose');
+import router from './router/index';
 // mongodb
-const dbConfig = require("./config/db");
+const dbConfig = require('./config/db');
 const app = new Koa();
 // token
-const SECRET = "Kagura_Design";
+const SECRET = 'Kagura_Design';
 
 app.use(bodyParser());
 app.use(cors());
 
 app.use(
   jwt({ secret: SECRET }).unless({
-    path: ["/login", "/link"],
+    path: ['/login', '/link'],
   })
 );
-
-app.use(router());
-
 // logger
 app.use(async (ctx: { method: any; url: any }, next: () => any) => {
   const start: any = new Date();
@@ -37,6 +34,7 @@ app.use(async (ctx: { method: any; url: any }, next: () => any) => {
   const ms: number = fin - start;
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
+app.use(router());
 
 // token
 app.use(
@@ -66,4 +64,4 @@ mongoose.connect(dbConfig.dbs, {
   useUnifiedTopology: true,
 });
 
-console.log("server running on port 12458");
+console.log('server running on port 12458');
