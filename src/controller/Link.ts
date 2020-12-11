@@ -2,7 +2,7 @@
  * @Author: Miya
  * @Date: 2020-07-15 12:06:23
  * @LastEditors: Miya
- * @LastEditTime: 2020-12-10 15:22:20
+ * @LastEditTime: 2020-12-11 11:00:40
  * @Description: 导航链接操作方法
  * @FilePath: \Single-Search-APIc:\Users\Platinum Prism\Documents\GitHub\Single-Search-Backend\src\controller\Link.ts
  */
@@ -11,7 +11,10 @@ const LinkSchema = mongoose.model('Link');
 
 class Link {
   // 增加链接
-  static async addNewLink(ctx: any) {
+  static async addNewLink(ctx: {
+    request: { body: { series: string; link: string } };
+    body: { code: number; msg: any; data?: number | mongoose.Document };
+  }) {
     // 基础数据
     const series = ctx.request.body.series;
     const link = ctx.request.body.link;
@@ -69,9 +72,11 @@ class Link {
     }
   }
   // 查询链接
-  static async searchLink(ctx: any) {
+  static async searchLink(ctx: {
+    query: { series: string };
+    body: { code: number; data?: mongoose.Document[]; msg: any };
+  }) {
     const series = ctx.query.series;
-    console.log(series);
     if (series === undefined) {
       const result = await LinkSchema.find();
       try {
@@ -105,7 +110,10 @@ class Link {
     }
   }
   // 修改链接
-  static async changeLink(ctx: any) {
+  static async changeLink(ctx: {
+    request: { body: { id: string; series: string; link: any } };
+    body: { code: number; msg: any };
+  }) {
     const id = ctx.request.body.id;
     const result = await LinkSchema.update(
       {
@@ -118,6 +126,22 @@ class Link {
         },
       }
     );
+    try {
+      return (ctx.body = {
+        code: 200,
+        msg: result,
+      });
+    } catch (err) {
+      return (ctx.body = {
+        code: 0,
+        msg: err,
+      });
+    }
+  }
+  // 删除分类
+  static async removeLink(ctx: any) {
+    const id = ctx.request.body.id;
+    const result = await LinkSchema.deleteOne({ _id: id });
     try {
       return (ctx.body = {
         code: 200,
