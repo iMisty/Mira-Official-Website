@@ -2,7 +2,7 @@
  * @Author: Miya
  * @Date: 2020-07-15 00:50:17
  * @LastEditors: Miya
- * @LastEditTime: 2020-12-10 14:51:19
+ * @LastEditTime: 2020-12-11 10:55:44
  * @Description: 导航链接路由
  * @FilePath: \Single-Search-APIc:\Users\Platinum Prism\Documents\GitHub\Single-Search-Backend\src\router\link.ts
  */
@@ -17,8 +17,8 @@ router.prefix('/link');
 router.get('/', Link.searchLink);
 // 增加链接
 router.post('/', Link.addNewLink);
-//修改链接
+// 修改链接
 router.put('/', Link.changeLink);
-// 删除链接
-// router.delete('/', Link.removeLink);
+// 删除分类
+router.delete('/', Link.removeLink);
 export default router;
