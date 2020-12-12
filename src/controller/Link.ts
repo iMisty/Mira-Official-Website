@@ -2,7 +2,7 @@
  * @Author: Miya
  * @Date: 2020-07-15 12:06:23
  * @LastEditors: Miya
- * @LastEditTime: 2020-12-11 11:00:40
+ * @LastEditTime: 2020-12-12 17:17:35
  * @Description: 导航链接操作方法
  * @FilePath: \Single-Search-APIc:\Users\Platinum Prism\Documents\GitHub\Single-Search-Backend\src\controller\Link.ts
  */
@@ -35,6 +35,7 @@ class Link {
       const result = new LinkSchema({
         series,
         link,
+        count: 0,
       });
       console.log(`Data-Non:${result}`);
       try {
