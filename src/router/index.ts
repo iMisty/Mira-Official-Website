@@ -1,15 +1,13 @@
 /*
  * @Author: Miya
  * @Date: 2020-07-26 03:57:56
- * @LastEditTime: 2020-12-11 17:18:24
+ * @LastEditTime: 2020-12-16 17:18:11
  * @LastEditors: Miya
  * @Description: 路由首页
  * @FilePath: \Single-Search-APIc:\Users\Platinum Prism\Documents\GitHub\Single-Search-Backend\src\router\index.ts
  */
 import * as Router from 'koa-router';
 import * as combineRouters from 'koa-combine-routers';
-// 测试用
-import testRouter from './test';
 // 链接数据
 import linkRouter from './link';
 // 管理员及登录相关
@@ -32,7 +30,6 @@ const routers = combineRouters(
   login,
   linkRouter,
   adminRouter,
-  testRouter,
   UserRouter
 );
 
