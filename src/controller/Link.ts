@@ -2,11 +2,12 @@
  * @Author: Miya
  * @Date: 2020-07-15 12:06:23
  * @LastEditors: Miya
- * @LastEditTime: 2020-12-12 17:17:35
+ * @LastEditTime: 2020-12-17 17:11:57
  * @Description: 导航链接操作方法
  * @FilePath: \Single-Search-APIc:\Users\Platinum Prism\Documents\GitHub\Single-Search-Backend\src\controller\Link.ts
  */
 import * as mongoose from 'mongoose';
+const ObjectID = require('mongodb').ObjectId;
 const LinkSchema = mongoose.model('Link');
 
 class Link {
@@ -34,8 +35,8 @@ class Link {
     if (temp.length === 0) {
       const result = new LinkSchema({
         series,
-        link,
         count: 0,
+        link,
       });
       console.log(`Data-Non:${result}`);
       try {
@@ -74,12 +75,13 @@ class Link {
   }
   // 查询链接
   static async searchLink(ctx: {
-    query: { series: string };
+    query: { series: string; link: string; id: string };
     body: { code: number; data?: mongoose.Document[]; msg: any };
   }) {
-    const series = ctx.query.series;
+    const { series, id, link } = ctx.query;
     if (series === undefined) {
-      const result = await LinkSchema.find();
+      console.log('no param');
+      const result = await LinkSchema.find({ _id: new ObjectID(id) });
       try {
         ctx.body = {
           code: 200,
@@ -94,6 +96,7 @@ class Link {
       }
       return true;
     } else {
+      console.log('had Param');
       const result = await LinkSchema.find({ series });
       try {
         ctx.body = {
@@ -155,6 +158,8 @@ class Link {
       });
     }
   }
+  // 增加点击数
+  static async addCount(ctx: any) {}
 }
 
 module.exports = Link;
