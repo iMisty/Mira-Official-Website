@@ -1,0 +1,48 @@
+{
+  "name": "a",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "watch": "tsc --watch",
+    "start": "nodemon ./src/index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "debug": "^4.3.4",
+    "ejs": "~3.1.7",
+    "fs": "^0.0.1-security",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-combine-routers": "^4.0.2",
+    "koa-convert": "^2.0.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
+    "koa-onerror": "^4.2.0",
+    "koa-router": "^10.1.1",
+    "koa-static": "^5.0.0",
+    "koa-views": "^8.0.0",
+    "marked": "^4.0.14",
+    "nodemon": "^1.19.4",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.9",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/runtime": "^7.17.9",
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.7",
+    "@types/koa-json": "^2.0.20",
+    "@types/koa-logger": "^3.1.2",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa-static": "^4.0.2",
+    "@types/koa-views": "^7.0.0",
+    "@types/marked": "^4.0.3",
+    "@types/node": "^17.0.25",
+    "nodemon": "^2.0.15"
+  }
+}
