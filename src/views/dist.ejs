@@ -1,0 +1,27 @@
+<!--
+ * @Author: Miya
+ * @Date: 2022-04-24 21:47:55
+ * @LastEditTime: 2022-04-24 21:55:31
+ * @LastEditors: Miya
+ * @Description: Dictionary
+ * @FilePath: \Kagura-Koa-Documents\src\views\dist.ejs
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/normalize.css" />
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="container__left">2</div>
+    <div class="container__right" onclick="console.log(<%= container %>)">
+      <%= container %>
+    </div>
+  </div>
+</body>
+
+</html>

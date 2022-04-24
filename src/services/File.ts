@@ -3,10 +3,10 @@
  * @Version: 1.0
  * @Author: Mirage
  * @Date: 2022-04-24 17:07:19
- * @LastEditors: Mirage
- * @LastEditTime: 2022-04-24 18:01:22
+ * @LastEditors: Miya
+ * @LastEditTime: 2022-04-24 22:46:47
  */
-import { readFile } from 'fs/promises';
+import { readdir, readFile } from 'fs/promises';
 import { marked } from 'marked';
 
 class File {
@@ -15,12 +15,19 @@ class File {
     this.filePath = filePath;
   }
 
+  public async getDir() {
+    const a = await readdir(__dirname + '/../docs/', 'utf-8');
+    let b: Array<any> = new Array(a.length);
+    for (let i = 0; i < a.length; i++) {
+      const c = await readdir(__dirname + '/../docs/' + a[i], 'utf-8');
+      console.log(c);
+      b[i] = { title: a[i], dist: c };
+    }
+    return b;
+  }
+
   public async getFile(file = this.filePath) {
-    console.log(file);
-    console.log(__dirname);
-    const getFileContent = await readFile(__dirname + '/../docs/3.md', 'utf-8');
-    console.log();
-    return marked.parse(getFileContent);
+    return await readFile(__dirname + '/../docs/' + file, 'utf-8');
   }
 }
 
