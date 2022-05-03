@@ -4,27 +4,21 @@
  * @Author: Mirage
  * @Date: 2022-04-24 12:00:55
  * @LastEditors: Miya
- * @LastEditTime: 2022-04-24 22:35:35
+ * @LastEditTime: 2022-05-03 21:58:07
  */
 import Router from 'koa-router';
 import CombineRouters from 'koa-combine-routers';
+import type { Context } from 'koa';
 
-import File from '../services/File';
+import routerFiles from './files';
 
 const router = new Router();
 
-const index = router.get('/', async (ctx: any, next: any) => {
-  const a = await new File('1').getDir();
-  console.log(a);
-  await ctx.render('index', { title: 1, message: JSON.stringify(a) });
-  next();
+const index = router.get('/', async (ctx: Context) => {
+  ctx.body = 'Hello TypeScript';
 });
 
-const dist = router.get('/dist', async (ctx: any, next: any) => {
-  const a = await new File('doc1/doc1-1/4.md').getFile();
-  await ctx.render('dist', { title: 3, container: a });
-});
 
-const routers = CombineRouters(index, dist);
+const routers = CombineRouters(index, routerFiles);
 
 export default routers;
