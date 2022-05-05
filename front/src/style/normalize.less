@@ -1,0 +1,25 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+* {
+  &::-webkit-scrollbar {
+    position: absolute;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+button {
+  border: none;
+  outline: none;
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}
+a {
+  text-decoration: none;
+}
