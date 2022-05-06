@@ -1,0 +1,10 @@
+.app__container {
+  display: grid;
+  grid-template-columns: minmax(64px, 256px) 1fr;
+  grid-template-rows: 4rem 1fr;
+  min-height: 100vh;
+  background-color: var(--md-sys-color-background);
+  &--navigation {
+    grid-column: span 2;
+  }
+}
