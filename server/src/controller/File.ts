@@ -4,7 +4,7 @@
  * @Author: Mirage
  * @Date: 2022-04-24 17:07:19
  * @LastEditors: Miya
- * @LastEditTime: 2022-05-04 02:48:35
+ * @LastEditTime: 2022-05-07 00:39:14
  */
 import { stat, readdir, readFile, mkdir } from 'fs/promises';
 import { marked } from 'marked';
@@ -12,7 +12,8 @@ import CustomReturn from '../services/CustomReturn';
 
 interface DirList {
   title: String;
-  dist: Array<DirList | String>;
+  dist: Array<String>;
+  sub: DirList | Array<null>;
 }
 
 interface ReturnData<T> {
@@ -52,12 +53,10 @@ class File {
   }
 
   /**
-   * @description Set Dir List in docs
-   * @returns {Promise<Array<DirList> | null>}
+   * @description Set Root Dir List in docs
+   * @returns {Promise<Array<String> | null>}
    */
-  private async setDirList(
-    subFilePath: string = ''
-  ): Promise<Array<DirList> | null> {
+  private async setRootDirList(): Promise<Array<String> | null> {
     try {
       const checkRoot = await this.checkRootDir();
       if (!checkRoot) {
@@ -67,54 +66,12 @@ class File {
       }
       // Get Root Dir List
       const getDirWithRoot = await readdir(
-        __dirname + `/../${this.filePath}/${subFilePath}`,
+        __dirname + `/../${this.filePath}`,
         'utf-8'
       );
+      let arrayDir: Array<String> = new Array(getDirWithRoot.length);
       console.log('Read Dir: ' + getDirWithRoot);
-      let arrayDir: Array<DirList> = new Array(getDirWithRoot.length);
-
-      // Get Second Dir List
-      for (let i = 0; i < getDirWithRoot.length; i++) {
-        const getStatus = await stat(
-          __dirname + `/../docs/${subFilePath}/` + getDirWithRoot[i]
-        );
-        const isDirectory = getStatus.isDirectory();
-
-        // File in this dictionary
-        if (!isDirectory) {
-          arrayDir[i] = {
-            title: null,
-            dist: [getDirWithRoot[i]],
-          };
-        }
-
-        // File in sub dictionary
-        if (isDirectory) {
-          const getDirListWithSecond = await readdir(
-            __dirname + `/../docs/${subFilePath}/` + getDirWithRoot[i]
-          );
-          console.log(getDirListWithSecond);
-          arrayDir[i] = {
-            title: getDirWithRoot[i],
-            dist: getDirListWithSecond,
-          };
-        }
-      }
-      if (subFilePath === '') {
-        // Get Third Dir List
-        for (let i = 0; i < arrayDir.length; i++) {
-          let arrayForSecond = new Array(arrayDir[i].dist.length);
-          for (let j = 0; j < arrayDir[i].dist.length; j++) {
-            const result = await this.getSecondList(
-              arrayDir[i].title as string,
-              arrayDir[i].dist[j] as string
-            );
-            arrayForSecond[j] = result;
-          }
-          arrayDir[i].dist = arrayForSecond;
-        }
-      }
-
+      arrayDir = getDirWithRoot;
       return arrayDir;
     } catch (error) {
       // TODO: another error
@@ -124,7 +81,83 @@ class File {
   }
 
   /**
-   *
+   * @description Get Root Dir List in docs
+   * @returns {Promise<ReturnData<String> | null>}
+   */
+  public async getRootDirList(): Promise<ReturnData<string> | null> {
+    try {
+      const getRootDir = await this.setRootDirList();
+      return new CustomReturn(200, 'ok').setErrorMessage(getRootDir);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  private async setInnerDirList(rootPath: string) {
+    if (!rootPath) {
+      throw new Error('Invalid Param');
+    }
+
+    const getDirWithInner = await readdir(
+      __dirname + `/../${this.filePath}/${rootPath}`,
+      'utf-8'
+    );
+    console.log(getDirWithInner);
+    const arrayTempInner = getDirWithInner;
+    const arrayReturn: any = { dist: [], sub: [] };
+
+    for (let i = 0; i < arrayTempInner.length; i++) {
+      const checkStatus = await this.setCheckFileStatus(
+        rootPath,
+        arrayTempInner[i]
+      );
+      console.log(checkStatus);
+      if (checkStatus.isDirectory) {
+        const getThirdFileList = await this.setThirdFileList(
+          rootPath,
+          arrayTempInner[i]
+        );
+        arrayReturn.sub.push(getThirdFileList);
+      } else {
+        arrayReturn.dist.push(arrayTempInner[i]);
+      }
+    }
+    console.log(arrayReturn);
+    return arrayReturn;
+  }
+
+  private async setThirdFileList(rootPath: string, innerPath: string) {
+    try {
+      const getDirWithInner = await readdir(
+        __dirname + `/../${this.filePath}/${rootPath}/${innerPath}`,
+        'utf-8'
+      );
+      return { title: innerPath, file: getDirWithInner };
+    } catch (error) {
+      return { title: innerPath, file: null as any };
+    }
+  }
+
+  public async getInnerDirList(rootPath: string) {
+    try {
+      const result = await this.setInnerDirList(rootPath);
+      console.log(result);
+      return new CustomReturn(200, 'ok').setErrorMessage(result);
+    } catch (error) {
+      return new CustomReturn(400, error).setErrorMessage(null);
+    }
+  }
+
+  private async setCheckFileStatus(rootPath: string, innerPath: string) {
+    const getStatus = await stat(
+      __dirname + `/../${this.filePath}/${rootPath}/${innerPath}`
+    );
+    const isDirectory = getStatus.isDirectory();
+    return { title: innerPath, isDirectory };
+  }
+
+  /**
+   * @description Read File Data
    * @param dir
    * @param file
    * @returns
@@ -153,23 +186,24 @@ class File {
    * @param filePath
    * @returns
    */
-  public async getDirList(filePath: string = '') {
-    try {
-      const getDirList = await this.setDirList(filePath);
-      console.log('Dir: ', getDirList);
-      if (getDirList === null) {
-        throw getDirList;
-      }
-      return new CustomReturn(200, 'ok').setErrorMessage(getDirList);
-    } catch (error) {
-      // TODO: another error
-      console.log(error);
-      return new CustomReturn(
-        4006,
-        'No Such of Directory but Make,Please Refresh'
-      ).setErrorMessage(null);
-    }
-  }
+  // public async getDirList(filePath: string = '') {
+  //   try {
+  //     const getDirList = await this.setDirList(filePath);
+  //     console.log('Dir: ', getDirList);
+  //     if (getDirList === null) {
+  //       throw getDirList;
+  //     }
+  //     return new CustomReturn(200, 'ok').setErrorMessage(getDirList);
+
+  //   } catch (error) {
+  //     // TODO: another error
+  //     console.log(error);
+  //     return new CustomReturn(
+  //       4006,
+  //       'No Such of Directory but Make,Please Refresh'
+  //     ).setErrorMessage(null);
+  //   }
+  // }
 
   /**
    * @description Get Second List Data
@@ -192,7 +226,7 @@ class File {
       __dirname + `/../${this.filePath}/${rootPath}/${secondPath}`,
       'utf-8'
     );
-    return { title: secondPath, dist: getDirWithSecond };
+    return { title: secondPath, dist: getDirWithSecond, sub: [] };
   }
 
   /**
